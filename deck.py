@@ -1,4 +1,5 @@
 import random
+from math import ceil
 
 from card import Card
 
@@ -18,6 +19,8 @@ class Deck:
         self.jokers = jokers
         self._deck = []
         self._cut_point = None
+        self._len_full_deck = (52 * self.decks) + (2 * self.decks * self.jokers)
+        self.needs_shuffle = False
 
         self.shuffle()
 
@@ -31,20 +34,25 @@ class Deck:
         self._deck = self._deck * self.decks
 
     def set_cut_point(self, percent=None):
-        if len(self._deck) != (52 * self.decks) + (2 * self.decks * self.jokers):
+        if len(self._deck) != self._len_full_deck:
             raise ValueError("cut point can only be set on a full deck")
+        
+        if self._cut_point:
+            raise ValueError("cut point already set, cannot set it a second time")
         
         if percent is not None:
             if percent < 0.7 or percent > 0.8:
                 raise ValueError("percent must be between 0.7 and 0.8 inclusive")
-            
-            self.cut_point = percent
         else:
             percent = random.randint(70, 80) / 100
+
+        self._cut_point = self._len_full_deck - self._len_full_deck * percent
 
 
     def shuffle(self):
         self._build_deck()
+        self.needs_shuffle = False
+        self._cut_point = None
         random.shuffle(self._deck)
 
     def draw(self, cards=1):
@@ -61,6 +69,10 @@ class Deck:
 
         for _ in range(cards):
             return_cards.append(self._deck.pop())
+
+        if self._cut_point:
+            if len(self._deck) <= self._cut_point:
+                self.needs_shuffle = True
 
         return return_cards
     

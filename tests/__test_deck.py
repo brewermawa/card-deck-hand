@@ -183,7 +183,7 @@ class TestDeck:
         
         with pytest.raises(ValueError):
             deck.set_cut_point(percent=percent)
-"""
+
     def test_deck_needs_shuffle_becomes_true_when_threshold_is_reached(self):
         deck = Deck() #52 cards
         percent=0.75
@@ -227,6 +227,7 @@ class TestDeck:
 
         assert deck.needs_shuffle is False
 
+
     def test_deck_needs_shuffle_is_false_on_new_deck(self):
         deck = Deck()
         assert deck.needs_shuffle is False
@@ -245,7 +246,7 @@ class TestDeck:
         assert deck.needs_shuffle is False
 
 
-    def test_deck_needs_shuffle_remains_false_is_cut_point_not_set(self):
+    def test_deck_needs_shuffle_remains_false_if_cut_point_not_set(self):
         deck = Deck() #52 cards
         cards_to_deal = len(deck) - 1
 
@@ -260,4 +261,3 @@ class TestDeck:
 
         with pytest.raises(ValueError):
             deck.set_cut_point(percent=0.80)
-"""

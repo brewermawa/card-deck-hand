@@ -27,7 +27,7 @@ Run tests with: pytest -q
 number_of_decks: how many full decks of 52 cards. Defaults to 1.
 jokers: flag to indicate if jokers are desired in the deck. Defaults to False.
 
-## Atttributes
+## Attributes
 decks: number of decks
 jokers: a flag that indicates if jokers are part of the deck
 
@@ -64,4 +64,31 @@ Defines the shuffle cut point used for Blackjack-style shoe depletion.
 
 ## Comments
 - In methods draw and burn the "top" of the deck really means the last item of the list. This makes it straightforward to use the pop() method of a list object.
+
+
+# Hand class
+- A hand instance is a container of cards.
+- A game engine uses the Hand class to manage the cards held by each player or dealer.
+- The hand class has no knowledge of the game that is being played. It does not calculate score or enforce game logic
+
+## Responsibilities
+- Holding a collection of Card instances.
+- Exposing its contents in a controlled way.
+- Allowing cards to be: added, removed,cleared, transferred to other containers by the game engine (e.g., discard piles, other hands).
+- Keeping card management independent of any specific game.
+
+## Attributes
+- cards: a list of Card instances. It is empty when initializing the instance
+
+## Methods
+- add_card(card): adds a card to the hand list. A separate game engine needs to draw a card from the deck and add it to the hand via this method
+- remove_card(card): Removes and returns a specific card from the hand
+- clear(): removes all cards from the hand
+- __len__: returns the current count of cards in the hand
+- cards_in_hand (property): equals `__len__`, but with a more human readable name
+- __str__: string representation of cards in hand
+
+
+## Comments
+“DiscardPile is intentionally out of scope for v1. Card lifecycle is managed by clearing hands and shuffling the deck as needed.”
 
