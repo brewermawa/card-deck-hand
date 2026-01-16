@@ -26,7 +26,7 @@ class TestHand:
 
         with pytest.raises(TypeError):
             hand.add_card(card)
-"""
+
     def test_hand_remove_last_card_decrements_count_by_one(self):
         hand = Hand()
         first_card = Card("A", "♦")
@@ -93,4 +93,12 @@ class TestHand:
 
         with pytest.raises(ValueError):
             hand.add_card(card)
-"""
+
+    def test_hand_add_card_raises_valueerror_when_card_already_in_hand(self):
+        hand = Hand()
+        first_card = Card("A", "♦")
+        hand.add_card(first_card)
+        second_card = Card("A", "♦")
+
+        with pytest.raises(ValueError):
+            hand.add_card(second_card)
