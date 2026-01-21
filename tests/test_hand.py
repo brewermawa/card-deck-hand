@@ -85,20 +85,3 @@ class TestHand:
 
         assert str(first_card) in str(hand)
         assert str(second_card) in str(hand)
-
-    def test_hand_add_card_raises_valueerror_when_card_already_in_hand(self):
-        hand = Hand()
-        card = Card("A", "♦")
-        hand.add_card(card)
-
-        with pytest.raises(ValueError):
-            hand.add_card(card)
-
-    def test_hand_add_card_raises_valueerror_when_card_already_in_hand(self):
-        hand = Hand()
-        first_card = Card("A", "♦")
-        hand.add_card(first_card)
-        second_card = Card("A", "♦")
-
-        with pytest.raises(ValueError):
-            hand.add_card(second_card)

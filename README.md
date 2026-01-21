@@ -70,6 +70,7 @@ Defines the shuffle cut point used for Blackjack-style shoe depletion.
 - A hand instance is a container of cards.
 - A game engine uses the Hand class to manage the cards held by each player or dealer.
 - The hand class has no knowledge of the game that is being played. It does not calculate score or enforce game logic
+- A hand can contain the "same" card two or more times. This can happen when the full Deck/Shoe contains 2 or more decks.
 
 ## Responsibilities
 - Holding a collection of Card instances.
@@ -82,7 +83,7 @@ Defines the shuffle cut point used for Blackjack-style shoe depletion.
 - cards: a list of Card instances. It is empty when initializing the instance
 
 ## Methods
-- add_card(card): adds a card to the hand list. A separate game engine needs to draw a card from the deck and add it to the hand via this method. Raises TypeError id the card given is not an instance of Card
+- add_card(card): adds a card to the hand list. A separate game engine needs to draw a card from the deck and add it to the hand via this method. Raises TypeError if the card given is not an instance of Card
 - remove_last_card(): Removes and returns the last card added to the hand
 - clear(): removes all cards from the hand
 - __len__: returns the current count of cards in the hand
