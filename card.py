@@ -36,7 +36,7 @@ class Card:
             raise ValueError("rank and suit must have a valid value")
         
         if self.rank in self.VALID_RANKS and self.suit == self.VALID_JOKER_SUIT:
-            raise ValueError("Joker suit (🃏) only valid with Joker rank")
+            raise ValueError("Joker suit invalid with rank not Joker")
         
         if self.rank == self.VALID_JOKER and self.suit in self.VALID_SUITS:
             raise ValueError("Joker rank invalid with ♣, ♦, ♠, ♥")
