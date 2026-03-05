@@ -76,9 +76,9 @@ Defines the shuffle cut point used for Blackjack-style shoe depletion.
 ## Responsibilities
 - Holding a collection of Card instances.
 - Exposing its contents in a controlled way.
-- Allowing cards to be: added, removed,cleared, transferred to other containers by the game engine (e.g., discard piles, other hands).
+- Allowing cards to be: added, removed, cleared, transferred to other containers by the game engine (e.g., discard piles, other hands).
 - Keeping card management independent of any specific game.
-- add_card raises ValueError if the card is already present in the hand.
+
 
 ## Attributes
 - cards: a list of Card instances. It is empty when initializing the instance

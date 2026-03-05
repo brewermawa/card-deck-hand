@@ -2,8 +2,8 @@ from math import ceil
 
 import pytest
 
-from card import Card
-from deck import Deck
+from cards import Card
+from cards import Deck
 
 class TestDeck:
     def test_deck_new_deck_must_have_52_cards(self):

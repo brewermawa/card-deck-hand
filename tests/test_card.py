@@ -2,7 +2,8 @@ import pytest
 
 from dataclasses import FrozenInstanceError
 
-from card import Card
+from cards import Card
+
 
 class TestCard:
     @pytest.mark.parametrize(

@@ -1,7 +1,7 @@
 import pytest
 
-from hand import Hand
-from card import Card
+from cards import Card
+from cards import Hand
 
 class TestHand:
     
@@ -107,3 +107,12 @@ class TestHand:
 
         assert str(first_card) in str(hand)
         assert str(second_card) in str(hand)
+
+    def test_hand_accepts_two_cards_of_the_same_value(self):
+        hand = Hand()
+        first_card = Card("A", "♦")
+        hand.add_card(first_card)
+        second_card = Card("A", "♦")
+        hand.add_card(second_card)
+
+        assert hand.cards_in_hand == 2
