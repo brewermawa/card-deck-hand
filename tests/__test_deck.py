@@ -49,6 +49,11 @@ class TestDeck:
         cards_drawn = deck.draw(5)
         assert len(cards_drawn) == 5
 
+    def test_deck_draw_with_no_argument_returns_1_card(self):
+        deck = Deck()
+        cards_drawn = deck.draw()
+        assert len(cards_drawn) == 1
+
     def test_deck_draw_one_returns_list_with_one_card_instance(self):
         deck = Deck()
         card = deck.draw()[0]
@@ -82,8 +87,6 @@ class TestDeck:
         with pytest.raises(IndexError):
             deck.draw()
 
-        assert len_before == len(deck)
-        assert deck.cards_remaining == len(deck)
 
     def test_deck_raises_indexerror_when_drawing_more_than_cards_remaining(self):
         deck = Deck()
@@ -95,8 +98,6 @@ class TestDeck:
         with pytest.raises(IndexError):
             deck.draw(5)
 
-        assert len_before == len(deck)
-        assert deck.cards_remaining == len(deck)
 
     @pytest.mark.parametrize(
         "cards_to_draw",

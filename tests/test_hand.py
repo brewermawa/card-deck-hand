@@ -38,17 +38,39 @@ class TestHand:
 
         assert len(hand) == len_before_remove - 1
 
-    def test_hand_remove_last_card_returns_card_instance(self):
+    @pytest.fixture
+    def hand_to_test_remove_last_card(self):
         hand = Hand()
         first_card_added = Card("A", "♦")
         hand.add_card(first_card_added)
         last_card_added = Card("J", "♦")
         hand.add_card(last_card_added)
+
+        return {"hand": hand, "first_card_added": first_card_added, "last_card_added": last_card_added}
+
+
+    def test_hand_remove_last_card_returns_card_instance(self, hand_to_test_remove_last_card):
+        hand = hand_to_test_remove_last_card["hand"]
         removed_card = hand.remove_last_card()
 
         assert isinstance(removed_card, Card) is True
+
+
+    def test_hand_remove_last_card_is_same_card_as_added(self, hand_to_test_remove_last_card):
+        hand = hand_to_test_remove_last_card["hand"]
+        last_card_added = hand_to_test_remove_last_card["last_card_added"]
+        removed_card = hand.remove_last_card()
+
         assert last_card_added is removed_card
+
+
+    def test_hand_remove_last_card_leaves_first_card_in_original_position(self, hand_to_test_remove_last_card):
+        hand = hand_to_test_remove_last_card["hand"]
+        first_card_added = hand_to_test_remove_last_card["first_card_added"]
+        hand.remove_last_card()
+
         assert first_card_added is hand.cards[0]
+
 
     def test_hand_remove_last_card_raises_valueerror_when_hand_is_empty(self):
         hand = Hand()

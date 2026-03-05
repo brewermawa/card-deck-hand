@@ -4,9 +4,9 @@ from math import ceil
 from card import Card
 
 class Deck:
-    RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
-    SUITS = ["♣", "♦", "♠", "♥"]
-    JOKERS = [("Joker", "🃏"), ("Joker", "🃏")]
+    RANKS = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"}
+    SUITS = {"♣", "♦", "♠", "♥"}
+    JOKER = Card("Joker", "🃏")
     
     def __init__(self, number_of_decks: int=1, jokers: bool=False):
         if not isinstance(number_of_decks, int) or isinstance(number_of_decks, bool):
@@ -28,8 +28,8 @@ class Deck:
         self._deck = [Card(rank, suit) for rank in self.RANKS for suit in self.SUITS]
 
         if self.jokers:
-            for joker in self.JOKERS:
-                self._deck.append(Card(joker[0], joker[1]))
+            self._deck.append(self.JOKER)
+            self._deck.append(self.JOKER)
 
         self._deck = self._deck * self.decks
 
@@ -37,7 +37,7 @@ class Deck:
         if len(self._deck) != self._len_full_deck:
             raise ValueError("cut point can only be set on a full deck")
         
-        if self._cut_point:
+        if self._cut_point is not None:
             raise ValueError("cut point already set, cannot set it a second time")
         
         if percent is not None:
@@ -46,7 +46,7 @@ class Deck:
         else:
             percent = random.randint(70, 80) / 100
 
-        self._cut_point = self._len_full_deck - self._len_full_deck * percent
+        self._cut_point = self._len_full_deck - ceil(self._len_full_deck * percent)
 
 
     def shuffle(self):
@@ -70,7 +70,7 @@ class Deck:
         for _ in range(cards):
             return_cards.append(self._deck.pop())
 
-        if self._cut_point:
+        if self._cut_point is not None:
             if len(self._deck) <= self._cut_point:
                 self.needs_shuffle = True
 

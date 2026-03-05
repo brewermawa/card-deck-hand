@@ -71,6 +71,7 @@ Defines the shuffle cut point used for Blackjack-style shoe depletion.
 - A game engine uses the Hand class to manage the cards held by each player or dealer.
 - The hand class has no knowledge of the game that is being played. It does not calculate score or enforce game logic
 - A hand can contain the "same" card two or more times. This can happen when the full Deck/Shoe contains 2 or more decks.
+- Cards property exposes the internal list directly. Callers should not modify it directly — use add_card, remove_last_card, and clear instead.
 
 ## Responsibilities
 - Holding a collection of Card instances.
