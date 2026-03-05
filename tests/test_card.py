@@ -90,3 +90,29 @@ class TestCard:
 
     def test_card_set_initialized_with_two_different_cards_has_len_2(self):
         assert len({Card("A", "♠"), Card("A", "♥")}) == 2
+
+
+    @pytest.mark.parametrize(
+        "rank, suit",
+        [("2", "🃏"), ("K", "🃏"), ("A", "🃏")]
+    )
+    def test_card_raises_value_error_invalid_combination_face_and_joker_suit(self, rank, suit):
+        with pytest.raises(ValueError):
+            card = Card(rank, suit)
+
+
+    @pytest.mark.parametrize(
+        "rank, suit",
+        [("Joker", "♣"), ("Joker", "♦"), ("Joker", "♠"), ("Joker", "♥")]
+    )
+    def test_card_raises_value_error_invalid_combination_joker_any_suit(self, rank, suit):
+        with pytest.raises(ValueError):
+            card = Card(rank, suit)
+
+
+    def test_card_accepts_joker_with_joker_suit(self):
+        card_with_joker = Card("Joker", "🃏")
+
+        assert card_with_joker.rank == "Joker"
+        assert card_with_joker.suit == "🃏"
+
